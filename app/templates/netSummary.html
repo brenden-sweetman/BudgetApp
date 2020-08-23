@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block body %}
+<style>
+.row-margin-bot { margin-bottom: 0.5em; }
+.row-margin-top { margin-top: 0.5em; }
+</style>
+
+
+<div class="container-fluid">
+  <div class="row row-margin-bot row-margin-top">
+    <div class="col-sm-3" style="border: 1px solid;background-color:#d9d9d9;"><strong>Category</strong></div>
+    <div class="col-sm-2" style="border: 1px solid;background-color:#d9d9d9;"><strong>Total</strong></div>
+    <div class="col-sm-2" style="border: 1px solid;background-color:#d9d9d9;"><strong>Last Updated</strong></div>
+  </div>
+  {% for value in netCategories %}
+  <div class="row row-margin-top collapse" id="{{ value.category | removeSpace() }}">
+    <div class="col-sm-2 offset-sm-1" style="border:1px solid;background-color:#d9d9d9;"><strong>Transaction</strong></div>
+    <div class="col-sm-2" style="border:1px solid;background-color:#d9d9d9;"><strong>Cost</strong></div>
+    <div class="col-sm-2" style="border:1px solid;background-color:#d9d9d9;"><strong>Created</strong></div>
+  </div>
+  {% for trans in transDict[value.category] %}
+  <div id="{{ value.category | removeSpace() }}" class="row collapse">
+    <div class="col-sm-2 offset-sm-1" style="border:1px solid;"> {{ trans.name }}</div>
+    <div class="col-sm-2" style="border:1px solid;"> {{ trans.cost | moneyRender(True) }}</div>
+    <div class="col-sm-2" style="border:1px solid;"> {{ trans.created | dateRender('%b %d %Y %H:%M') }} </div>
+  </div>
+  {% endfor %}
+  <div class="row row-margin-top row-margin-bot">
+    <div class="col-sm-3" style="border-bottom:1px solid;"> {{ value.category }}</div>
+    <div class="col-sm-2" style="border-bottom:1px solid;"> {{ value.net_value | moneyRender(True) }}</div>
+    <div class="col-sm-2" style="border-bottom:1px solid;"> {{ value.last_updated | dateRender('%b %d %Y %H:%M') }} </div>
+    <div class="col-sm-1" >
+      <button type="button" class="btn" data-toggle="collapse" data-target="#{{ value.category | removeSpace() }}">Expanded View</button>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="row row-margin-top">
+    <div class="col-sm-3" style="border-bottom:1px solid;"><strong>Total Spent</strong></div>
+    <div class="col-sm-2" style="border-bottom:1px solid;"><strong> {{ total | moneyRender(True) }}</strong></div>
+  </div>
+</div>
+{% endblock %}

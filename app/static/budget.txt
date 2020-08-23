@@ -1,0 +1,11 @@
+Home:200
+Groceries:300
+Food and Drink:200
+Gas:100
+Car:100
+Shopping:100
+Dog:100
+Bills:600
+Entertainment:200
+Professional Shopping:100
+Travel:100

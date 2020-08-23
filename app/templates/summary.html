@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+
+{% block body %}
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Cost</th>
+        <th>Notes</th>
+        <th>Created</th>
+    </tr>
+    {% for value in transactions %}
+    <tr>
+        <td> {{ value.name }} </td>
+        <td> {{ value.category }} </td>
+        <td> {{ value.cost | moneyRender}} </td>
+        <td> {{ value.notes }} </td>
+        <td> {{ value.created | dateRender('%b %d %Y %H:%M') }} </td>
+    </tr>
+   {% endfor %}
+</table>
+
+{% endblock %}

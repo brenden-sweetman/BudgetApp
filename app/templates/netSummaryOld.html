@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+
+{% block body %}
+<table class="table table-bordered">
+    <tr>
+        <th>Category</th>
+        <th>Total Spent</th>
+        <th>Last Updated</th>
+    </tr>
+    {% for value in netCategories %}
+    <tr>
+        <td> {{ value.category }} </td>
+        <td> {{ value.net_value  | moneyRender(True) }} </td>
+        <td> {{ value.last_updated | dateRender('%b %d %Y %H:%M') }} </td>
+    </tr>
+   {% endfor %}
+   <tr>
+     <td> <strong> Monthy Total: <strong> </td>
+     <td><strong> {{ total | moneyRender(True)}}</strong></td>
+   </tr>
+</table>
+
+{% endblock %}
