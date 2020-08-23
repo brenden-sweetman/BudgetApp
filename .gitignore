@@ -1,5 +1,5 @@
 ## Project FIles
-prod.db # do not upload prod database
+app/prod.db # do not upload prod database
 
 
 ## Python Files
