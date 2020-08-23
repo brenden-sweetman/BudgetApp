@@ -30,5 +30,4 @@ class NetBudget(Base):
     created = Column(DateTime, default=datetime.datetime.utcnow)
     last_updated = Column(DateTime, onupdate=datetime.datetime.utcnow)
 
-
 Base.metadata.create_all(engine)
