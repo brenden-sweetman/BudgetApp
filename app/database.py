@@ -9,7 +9,7 @@ from sqlalchemy.orm import scoped_session
 
 #create declarative_base instance
 Base = declarative_base()
-engine = create_engine('sqlite:///prod.db')
+engine = create_engine('sqlite:///test.db')
 SessionLocal = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 
 # Add table classes
@@ -29,6 +29,7 @@ class NetBudget(Base):
     net_value = Column(Float())
     created = Column(DateTime, default=datetime.datetime.utcnow)
     last_updated = Column(DateTime, onupdate=datetime.datetime.utcnow)
-
+class Users(Base):
+    __tablename__="users"
 
 Base.metadata.create_all(engine)
