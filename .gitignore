@@ -1,7 +1,5 @@
 ## Project FIles
-
-
-prod.db
+*.db
 
 ## Python Files
 # Byte-compiled / optimized / DLL files

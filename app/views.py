@@ -39,11 +39,9 @@ def processInput():
 @app.route("/seeData")
 def seeData():
     # Get TimeDelta for current month:
-    currentTime = datetime.datetime.today()
-    firstDay = datetime.datetime(currentTime.year,currentTime.month,1)
-    timeDiff =  currentTime-firstDay
+    monthStart =  getMonthStart()
 
-    transactions = SessionLocal.query(Transactions).filter(Transactions.created > timeDiff).all()
+    transactions = SessionLocal.query(Transactions).filter(Transactions.created > monthStart).all()
     SessionLocal.remove()
     try:
         renderPage = render_template("summary.html",transactions=transactions, title = "Monthy Transactions")
@@ -55,17 +53,17 @@ def seeData():
 def seeNetData():
     ## Create dictonary of all transactions
     # Get TimeDelta for current month:
-    timeDiff =  getMonthStart()
-    # Pull all trsactions
+    monthStart =  getMonthStart()
+    # Pull all transactions
     transDict = dict.fromkeys(budgetDict.keys(), [])
-    monthTrasactions = SessionLocal.query(Transactions).filter(Transactions.created > timeDiff).all()
+    monthTrasactions = SessionLocal.query(Transactions).filter(Transactions.created > monthStart).all()
     # Build dictonary of all transactions
     for key in transDict:
         tempList = []
         for trans in monthTrasactions:
             if trans.category == key:
                 tempList.append(trans)
-        transDict[key] = tempList    
+        transDict[key] = tempList
     # Get all categories
     netCategories = SessionLocal.query(NetBudget).all()
     SessionLocal.remove()
@@ -118,10 +116,9 @@ def netBudgetCalculation():
 
 ## Function to find time delta to start of month
 def getMonthStart():
-    # Get TimeDelta for current month:
-    currentTime = datetime.datetime.today()
+    currentTime = datetime.datetime.now()
     firstDay = datetime.datetime(currentTime.year,currentTime.month,1)
-    return currentTime-firstDay
+    return firstDay
 
 ### Jinja2 custom functions
 
