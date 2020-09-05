@@ -31,5 +31,14 @@ class NetBudget(Base):
     last_updated = Column(DateTime, onupdate=datetime.datetime.utcnow)
 class Users(Base):
     __tablename__="users"
+    id = Column(Integer(), primary_key=True, autoincrement=True)
+    first_name = Column(String(255), nullable = False)
+    last_name = Column(String(255), nullable = False)
+    password = Column(String(64), nullable = False)
+    email = Column(String(255), nullable = False)
+    created = Column(DateTime, default=datetime.datetime.utcnow)
+    last_updated = Column(DateTime, onupdate=datetime.datetime.utcnow)
+    sessionID = Column(Integer())
+    
 
 Base.metadata.create_all(engine)
